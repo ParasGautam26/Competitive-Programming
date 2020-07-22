@@ -1,0 +1,32 @@
+import java.lang.*;
+import java.util.*;
+import java.io.*;
+
+public class MyClass {
+    public static void main(String args[])throws java.lang.Exception {
+        try{
+            Scanner scan = new Scanner(System.in);
+            int n = scan.nextInt();
+            int[] a = new int[n];
+            for(int i=0 ; i<n ; i++){
+                a[i] = scan.nextInt();
+            }
+            Arrays.sort(a);
+            int[] dp = new int[n]; 
+            dp[n-1] = 1;
+            
+            for(int i=n-2 ; i>=0 ; i--){
+                int max = 0;
+                for(int j=i+1 ; j<n ; j++){
+                    if(a[j] % a[i] == 0){
+                        max = Math.max(max,dp[j]);
+                    }
+                }
+                dp[i] = 1+max;
+            }
+            System.out.println(Arrays.stream(dp).max().getAsInt());
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+}
