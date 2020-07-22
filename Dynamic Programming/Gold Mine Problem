@@ -1,0 +1,47 @@
+import java.lang.*;
+import java.util.*;
+import java.io.*;
+
+public class MyClass {
+    public static void main(String args[])throws java.lang.Exception {
+        try{
+            Scanner scan = new Scanner(System.in);
+            int row = scan.nextInt();
+            int col = scan.nextInt();
+            int[][] gold = new int[row][col];
+            
+            for(int i=0;i<row;i++){
+                for(int j=0;j<col;j++){
+                    gold[i][j] = scan.nextInt();
+                }
+            }
+            
+            int[][] ans = new int[row][col];
+            
+            for(int[] rows: ans){
+                Arrays.fill(rows,0);
+            }
+            
+            for(int j=col-1 ; j>=0 ; j--){
+                for(int i=0 ; i<row ;i++){
+                    
+                    int right = (j==col-1)?0:ans[i][j+1];
+                    
+                    int right_up = (i==0 || j==row-1)?0:ans[i-1][j+1];
+                    
+                    int right_down = (i==row-1 || j==col-1)?0:ans[i+1][j+1];
+                    
+                    ans[i][j] = gold[i][j] + Math.max(right,Math.max(right_up,right_down));
+                }
+            }
+            
+            int res = ans[0][0];
+            for(int i=1 ; i<row ; i++){
+                res = Math.max(res,ans[i][0]);
+            }
+            System.out.println(res);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+}
