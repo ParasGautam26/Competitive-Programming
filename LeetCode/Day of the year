@@ -1,0 +1,36 @@
+class Solution {
+    public boolean isleap(int t){
+        if(t%400==0) return true;
+        if(t%100==0) return false;
+        if(t%4==0) return true;
+        return false;
+    }
+    public int dayOfYear(String date) {
+        int[] a = {31,28,31,30,31,30,31,31,30,31,30,31};
+        String x = "";
+        x = x + date.charAt(8) + date.charAt(9);     
+        int date_num = Integer.parseInt(x);
+        String y = "";
+        y = y + date.charAt(5) + date.charAt(6);
+        int month = Integer.parseInt(y);
+        int flag = 0; 
+        String z = "";
+        z = z + date.charAt(0) + date.charAt(1) + date.charAt(2) + date.charAt(3);
+        int year = Integer.parseInt(z);
+        if(isleap(year)){
+            flag=1;
+        }
+        if(month==1){
+            return date_num;
+        }
+        int ans = 0;
+        for(int i=0;i<month-1;i++){
+            ans+=a[i];
+        }
+        ans+=date_num;
+        if(flag==1 && month>2){
+            ans+=1;
+        }
+        return ans;        
+    }
+}
